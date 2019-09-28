@@ -11,6 +11,16 @@ Option Explicit
 
 Sub btnCreateCsv()
 
-    createCsv
+
+    Dim forCsvRange As Range
+    Set forCsvRange = getNamedRange(Application, "for_csv")
+    
+    Dim pathRange As Range
+    Set pathRange = getNamedRange(Application, "file_to_save")
+    
+    Dim pathToSave As String
+    pathToSave = ActiveWorkbook.Path & "\" & pathRange.Formula
+    
+    createCsv forCsvRange, pathToSave
     
 End Sub

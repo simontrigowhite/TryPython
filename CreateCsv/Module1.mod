@@ -1,54 +1,18 @@
 Attribute VB_Name = "Module1"
 Option Explicit
 
-Const MODULE_TITLE = "Create csv"
+Public Const MODULE_TITLE = "Create csv"
 
 
-Public Sub createCsv()
+Public Sub createCsv(forCsvRange As Range, pathToSave As String)
 
-
-    Dim forCsvRange As Range
-    Set forCsvRange = getNamedRange(Application, "for_csv")
-    
-    Dim pathRange As Range
-    Set pathRange = getNamedRange(Application, "file_to_save")
-    
-    Dim pathToSave As String
-    pathToSave = pathRange.Formula
-    
-    
     Dim fso As Object
     Set fso = CreateObject("Scripting.FileSystemObject")
+    
     Dim file As Object
     Set file = fso.CreateTextFile(pathToSave)
 
-
-    Dim row As Long
-    For row = 1 To forCsvRange.Rows.Count
-    
-        Dim rowText As String
-        rowText = ""
-        
-        Dim col As Long
-        For col = 1 To forCsvRange.Columns.Count
-        
-            Dim cellText As String
-            
-            Dim cell As Range
-            Set cell = forCsvRange.Cells(row, col)
-            
-            cellText = cell.Text
-            
-            rowText = rowText & getSeparator(rowText) & cellText
-        
-        Next col
-        
-        Debug.Print rowText
-        
-        file.writeline rowText
-        
-    Next row
-    
+    writeRows forCsvRange, file
     
     file.Close
     Set fso = Nothing
@@ -62,28 +26,28 @@ Public Sub createCsv()
 End Sub
 
 
-' Tools
-
-Function getNamedRange(oExcelApp As Application, sRangeName As String) As Range
+Private Sub writeRows(forCsvRange As Range, file As Object)
     
-    Set getNamedRange = Nothing
-    On Error Resume Next
-    Set getNamedRange = oExcelApp.Names(sRangeName).RefersToRange
-    On Error GoTo 0
+    Dim row As Long
+    For row = 1 To forCsvRange.Rows.Count
     
-    If getNamedRange Is Nothing Then
-        Call MsgBox("The report template must contain the name " & sRangeName, , MODULE_TITLE)
-    End If
-
-End Function
-
-Function getSeparator(existing As String) As String
-
-    If (existing = "") Then
-        getSeparator = ""
+        Dim rowText As String
+        rowText = ""
         
-    Else
-        getSeparator = ","
-    End If
+        Dim col As Long
+        For col = 1 To forCsvRange.Columns.Count
+        
+            Dim cell As Range
+            Set cell = forCsvRange.Cells(row, col)
+            
+            rowText = rowText & getSeparator(rowText) & cell.Text
+        
+        Next col
+        
+        Debug.Print rowText
+        
+        file.writeline rowText
+        
+    Next row
     
-End Function
+End Sub
