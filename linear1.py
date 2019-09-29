@@ -11,6 +11,7 @@ from numpy import loadtxt
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
+
 # load the dataset
 dataset = loadtxt(
         'C:/Users/Simon/Documents/GitHub/TryPython/linear1.csv',
@@ -22,6 +23,8 @@ y = dataset[:, 1]
 
 # Fitting Simple Linear Regression to the Training set
 regressor = LinearRegression()
+
+
 regressor.fit(X, y)
 
 y_pred_155 = regressor.predict([[15.5]])

@@ -22,17 +22,17 @@ X = dataset[:, 0:1]
 y = dataset[:, 1]
 
 # Fitting Polynomial Regression to the dataset
+regressor = LinearRegression()
 poly_reg = PolynomialFeatures(degree=2)
 X_poly = poly_reg.fit_transform(X)
-pol_reg = LinearRegression()
-pol_reg.fit(X_poly, y)
+regressor.fit(X_poly, y)
 
-y_pred_155 = pol_reg.predict(poly_reg.fit_transform([[15.5]]))
+y_pred_155 = regressor.predict(poly_reg.fit_transform([[15.5]]))
 print('Prediction of 15.5: %.2f' % y_pred_155)
 
-y_preds = pol_reg.predict(poly_reg.fit_transform(X))
+y_preds = regressor.predict(X_poly)
 
 plt.scatter(X, y, color='red')
 plt.scatter([[15.5]], y_pred_155, color='green', zorder=10, s=75)
-plt.plot(X, pol_reg.predict(poly_reg.fit_transform(X)), color='blue')
+plt.plot(X, regressor.predict(X_poly), color='blue')
 plt.show()
