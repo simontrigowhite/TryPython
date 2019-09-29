@@ -27,12 +27,13 @@ regressor = LinearRegression()
 
 regressor.fit(X, y)
 
-y_pred_155 = regressor.predict([[15.5]])
-print('Prediction of 15.5: %.2f' % y_pred_155)
-
+x_test = 15.5
+y_pred_test = regressor.predict([[x_test]])
+print('Prediction of %.2f: %.2f' % (x_test, y_pred_test))
+    
 y_preds = regressor.predict(X)
 
 plt.scatter(X, y, color='red')
-plt.scatter([[15.5]], y_pred_155, color='green', zorder=10, s=75)
+plt.scatter([[x_test]], y_pred_test, color='green', zorder=10, s=75)
 plt.plot(X, regressor.predict(X), color='blue')
 plt.show()

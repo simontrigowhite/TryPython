@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Sep 29 17:30:56 2019
+Created on Sun Sep 29 17:52:11 2019
 
 @author: Simon
 """
 
-# First try polynomial regression AI
+# polynomial - cubic
 
 from numpy import loadtxt
 import matplotlib.pyplot as plt
@@ -14,7 +14,7 @@ from sklearn.preprocessing import PolynomialFeatures
 
 # load the dataset
 dataset = loadtxt(
-        'C:/Users/Simon/Documents/GitHub/TryPython/poly1.csv',
+        'C:/Users/Simon/Documents/GitHub/TryPython/poly2.csv',
         delimiter=',')
 
 # split into input (X) and output (y) variables
@@ -23,11 +23,11 @@ y = dataset[:, 1]
 
 # Fitting Polynomial Regression to the dataset
 regressor = LinearRegression()
-poly_reg = PolynomialFeatures(degree=2)
+poly_reg = PolynomialFeatures(degree=3)
 X_poly = poly_reg.fit_transform(X)
 regressor.fit(X_poly, y)
 
-x_test = 15.5
+x_test = 7.5
 y_pred_test = regressor.predict(poly_reg.fit_transform([[x_test]]))
 print('Prediction of %.2f: %.2f' % (x_test, y_pred_test))
 
