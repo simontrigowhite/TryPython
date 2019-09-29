@@ -15,7 +15,8 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 
 # Importing the dataset
-dataset = pd.read_csv('salary_data.csv')
+dataset = pd.read_csv(
+        'salary_data.csv')  # or try with salary_data_not_linear.csv
 X = dataset.iloc[:, :-1].values  # get a copy of dataset exclude last column
 y = dataset.iloc[:, 1].values  # get array of dataset in column 1st
 
@@ -46,27 +47,27 @@ viz_test.ylabel('Salary')
 viz_test.show()
 
 # Predicting the result of 5 Years Experience
-y_pred = regressor.predict([[5]])
-print(y_pred)
+y_pred_5 = regressor.predict([[5]])
+print('Prediction of 5: %.2f' % y_pred_5)
 
 # Predicting the Test set results
 y_preds_test = regressor.predict(X_test)
-print(y_preds_test)
 
-# Visualizing the predicted results of the test set
+# Visualizing the predicted results of the test set, and 5 years experience
 viz_predicted_test = plt
 viz_predicted_test.scatter(X_test, y_test, color='red')
 viz_predicted_test.scatter(X_test, y_preds_test, color='blue')
+viz_predicted_test.scatter([[5]], y_pred_5, color='green', zorder=10, s=75)
 viz_predicted_test.plot(X_train, regressor.predict(X_train), color='blue')
 viz_predicted_test.show()
 
 # Predicting the training set results
 y_preds_train = regressor.predict(X_train)
-print(y_preds_train)
 
-# Visualizing the predicted results of the training set
+# Visualizing the predicted results of the training set, and 5 years experience
 viz_predicted_train = plt
 viz_predicted_train.scatter(X_train, y_train, color='red')
 viz_predicted_train.scatter(X_train, y_preds_train, color='blue')
+viz_predicted_train.scatter([[5]], y_pred_5, color='green', zorder=10, s=75)
 viz_predicted_train.plot(X_train, regressor.predict(X_train), color='blue')
 viz_predicted_train.show()
