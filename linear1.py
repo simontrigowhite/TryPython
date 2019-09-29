@@ -17,8 +17,8 @@ dataset = loadtxt(
         'C:/Users/Simon/Documents/GitHub/TryPython/linear2.csv',
         delimiter=',')
 # split into input (X) and output (y) variables
-xs = dataset[:, 0:8]
-ys = dataset[:, 8]
+X = dataset[:, 0:8]
+y = dataset[:, 8]
 
 # define the keras model
 model = Sequential()
@@ -31,10 +31,10 @@ model.compile(
         loss='mean_squared_error', optimizer='adam', metrics=['accuracy'])
 
 # fit the keras model on the dataset
-model.fit(xs, ys, epochs=150, batch_size=10)
+model.fit(X, y, epochs=150, batch_size=10)
 
 # evaluate the keras model
-loss, accuracy = model.evaluate(xs, ys)
+loss, accuracy = model.evaluate(X, y)
 print('Accuracy: %.2f' % (accuracy*100))
 
 # gives accuracy of 0! loss doesn't reduce over epochs.
