@@ -7,9 +7,12 @@ Created on Sun Sep 29 14:20:37 2019
 
 # https://towardsdatascience.com/machine-learning-polynomial-regression-with-python-5328e4e8a386
 
-import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
 
 # Importing the dataset
 dataset = pd.read_csv('position_salaries.csv')
@@ -17,17 +20,14 @@ X = dataset.iloc[:, 1:2].values
 y = dataset.iloc[:, 2].values
 
 # Splitting the dataset into the Training set and Test set
-from sklearn.model_selection import train_test_split 
 X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=0)
 
 # Fitting Linear Regression to the dataset
-from sklearn.linear_model import LinearRegression
 lin_reg = LinearRegression()
 lin_reg.fit(X, y)
 
 # Fitting Polynomial Regression to the dataset
-from sklearn.preprocessing import PolynomialFeatures
 poly_reg = PolynomialFeatures(degree=4)
 X_poly = poly_reg.fit_transform(X)
 pol_reg = LinearRegression()

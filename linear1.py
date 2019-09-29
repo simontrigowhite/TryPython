@@ -5,40 +5,29 @@ Created on Sat Sep 28 23:38:32 2019
 @author: Simon
 """
 
-
-
-
 from numpy import loadtxt
-from keras.models import Sequential
-from keras.layers import Dense
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 
 # load the dataset
 dataset = loadtxt(
-        'C:/Users/Simon/Documents/GitHub/TryPython/linear2.csv',
+        'C:/Users/Simon/Documents/GitHub/TryPython/linear1.csv',
         delimiter=',')
+
 # split into input (X) and output (y) variables
-X = dataset[:, 0:8]
-y = dataset[:, 8]
+X = dataset[:, 0:1]
+y = dataset[:, 1]
 
-# define the keras model
-model = Sequential()
-model.add(Dense(12, input_dim=8, activation='relu'))
-model.add(Dense(8, activation='relu'))
-model.add(Dense(1, activation='sigmoid'))
+# Fitting Simple Linear Regression to the Training set
+regressor = LinearRegression()
+regressor.fit(X, y)
 
-# compile the keras model
-model.compile(
-        loss='mean_squared_error', optimizer='adam', metrics=['accuracy'])
+y_pred_55 = regressor.predict([[5.5]])
+print('Prediction of 5.5: %.2f' % y_pred_55)
 
-# fit the keras model on the dataset
-model.fit(X, y, epochs=150, batch_size=10)
+y_preds = regressor.predict(X)
 
-# evaluate the keras model
-loss, accuracy = model.evaluate(X, y)
-print('Accuracy: %.2f' % (accuracy*100))
-
-# gives accuracy of 0! loss doesn't reduce over epochs.
-
-model.summary()
-
-# and only 221 params!
+plt.scatter(X, y, color='red')
+plt.scatter([[5.5]], y_pred_55, color='green', zorder=10, s=75)
+plt.plot(X, regressor.predict(X), color='blue')
+plt.show()

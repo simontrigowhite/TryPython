@@ -17,8 +17,8 @@ from sklearn.model_selection import train_test_split
 # Importing the dataset
 dataset = pd.read_csv(
         'salary_data.csv')  # or try with salary_data_not_linear.csv
-X = dataset.iloc[:, :-1].values  # get a copy of dataset exclude last column
-y = dataset.iloc[:, 1].values  # get array of dataset in column 1st
+X = dataset.iloc[:, :-1].values 
+y = dataset.iloc[:, 1].values
 
 # Splitting the dataset into the Training set and Test set
 X_train, X_test, y_train, y_test = train_test_split(
