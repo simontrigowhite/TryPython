@@ -37,3 +37,5 @@ plt.scatter(X, y, color='red')
 plt.scatter([[x_test]], y_pred_test, color='green', zorder=10, s=75)
 plt.plot(X, regressor.predict(X_poly), color='blue')
 plt.show()
+
+print(regressor.coef_)
